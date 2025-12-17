@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Technology with Raju - Secure Course Platform",
+  "description": "A production-ready student course platform with secure Razorpay integration, JWT authentication, and protected video content access.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
