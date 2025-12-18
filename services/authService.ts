@@ -31,23 +31,34 @@ export const authService = {
   },
 
   getCurrentState: (): AuthState => {
-    const token = localStorage.getItem('raju_auth_token');
-    const userStr = localStorage.getItem('raju_user');
-    if (token && userStr) {
-      return { user: JSON.parse(userStr), token, isAuthenticated: true };
+    try {
+      const token = localStorage.getItem('raju_auth_token');
+      const userStr = localStorage.getItem('raju_user');
+      if (token && userStr) {
+        const user = JSON.parse(userStr);
+        return { user, token, isAuthenticated: true };
+      }
+    } catch (e) {
+      console.error("Failed to parse auth state from localStorage", e);
+      localStorage.removeItem('raju_auth_token');
+      localStorage.removeItem('raju_user');
     }
     return { user: null, token: null, isAuthenticated: false };
   },
 
   updatePurchasedCourses: (courseId: string) => {
-    const userStr = localStorage.getItem('raju_user');
-    if (userStr) {
-      const user = JSON.parse(userStr) as User;
-      if (!user.purchasedCourses.includes(courseId)) {
-        user.purchasedCourses.push(courseId);
-        localStorage.setItem('raju_user', JSON.stringify(user));
-        return user;
+    try {
+      const userStr = localStorage.getItem('raju_user');
+      if (userStr) {
+        const user = JSON.parse(userStr) as User;
+        if (!user.purchasedCourses.includes(courseId)) {
+          user.purchasedCourses.push(courseId);
+          localStorage.setItem('raju_user', JSON.stringify(user));
+          return user;
+        }
       }
+    } catch (e) {
+      console.error("Failed to update purchased courses", e);
     }
     return null;
   }

@@ -55,7 +55,7 @@ export default function HomePage() {
           </div>
           <div className="flex-1 w-full max-w-xl">
              <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-violet-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:opacity-50 transition duration-1000"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-violet-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                 <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
                   <img src="https://picsum.photos/seed/coding/800/600" alt="Coding Session" className="w-full aspect-video object-cover" />
                   <div className="absolute inset-0 bg-slate-900/40 flex items-center justify-center">
