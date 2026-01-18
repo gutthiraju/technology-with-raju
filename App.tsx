@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+// Fixed: Changed import to react-router for v7+ compatibility where all exports are unified
+import { HashRouter as Router, Routes, Route, Navigate, Link } from 'react-router';
 import { authService } from './services/authService';
 import { AuthState, User } from './types';
 import { LogOut, BookOpen, LayoutDashboard, User as UserIcon, ShieldCheck, Menu, X, Rocket, Info, CreditCard } from 'lucide-react';

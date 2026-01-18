@@ -7,6 +7,12 @@ export enum CourseCategory {
   INTERVIEW = 'Interview Prep'
 }
 
+export interface Lesson {
+  title: string;
+  videoUrl?: string;
+  duration?: string;
+}
+
 export interface Course {
   id: string;
   title: string;
@@ -17,6 +23,8 @@ export interface Course {
   duration: string;
   lessons: number;
   isPremium: boolean;
+  videoUrl?: string; // Default video for the course
+  lessonList?: (string | Lesson)[]; // Can be simple titles or detailed lesson objects
 }
 
 export interface User {
@@ -25,6 +33,7 @@ export interface User {
   email: string;
   avatar?: string;
   purchasedCourses: string[];
+  completedLessons: string[]; // Format: "courseId|lessonIndex"
   role: 'student' | 'admin';
 }
 

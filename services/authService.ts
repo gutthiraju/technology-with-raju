@@ -13,6 +13,7 @@ export const authService = {
       name: 'Test Student',
       email: email,
       purchasedCourses: [],
+      completedLessons: [],
       role: 'student'
     };
     
@@ -36,6 +37,8 @@ export const authService = {
       const userStr = localStorage.getItem('raju_user');
       if (token && userStr) {
         const user = JSON.parse(userStr);
+        // Ensure legacy users have the new field
+        if (!user.completedLessons) user.completedLessons = [];
         return { user, token, isAuthenticated: true };
       }
     } catch (e) {
@@ -59,6 +62,31 @@ export const authService = {
       }
     } catch (e) {
       console.error("Failed to update purchased courses", e);
+    }
+    return null;
+  },
+
+  toggleLessonComplete: (courseId: string, lessonIndex: number) => {
+    try {
+      const userStr = localStorage.getItem('raju_user');
+      if (userStr) {
+        const user = JSON.parse(userStr) as User;
+        const completionKey = `${courseId}|${lessonIndex}`;
+        
+        if (!user.completedLessons) user.completedLessons = [];
+        
+        const index = user.completedLessons.indexOf(completionKey);
+        if (index > -1) {
+          user.completedLessons.splice(index, 1);
+        } else {
+          user.completedLessons.push(completionKey);
+        }
+        
+        localStorage.setItem('raju_user', JSON.stringify(user));
+        return user;
+      }
+    } catch (e) {
+      console.error("Failed to toggle lesson completion", e);
     }
     return null;
   }

@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../App';
 import { Shield, Mail, Lock, ArrowRight, Github } from 'lucide-react';
-import { Link } from 'react-router-dom';
+// Fixed: Changed import to react-router for v7+ compatibility
+import { Link } from 'react-router';
 
 export default function LoginPage() {
   const { login } = useAuth();

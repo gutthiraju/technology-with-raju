@@ -5,7 +5,8 @@ import { useAuth } from '../App';
 import { paymentService } from '../services/paymentService';
 import { authService } from '../services/authService';
 import { Play, Lock, Clock, Book, IndianRupee, Search, Filter } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+// Fixed: Changed import to react-router for v7+ compatibility
+import { useNavigate } from 'react-router';
 
 export default function CoursesPage() {
   const { state, syncUser } = useAuth();
