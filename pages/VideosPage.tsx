@@ -1,5 +1,8 @@
+
 import React from 'react';
 import { PlayCircle, Youtube, Info, Share2, ExternalLink } from 'lucide-react';
+// Added Link import to resolve the "Cannot find name 'Link'" error on lines 125 and 127
+import { Link } from 'react-router';
 
 export default function VideosPage() {
   const videoData = [
@@ -26,6 +29,24 @@ export default function VideosPage() {
       title: "The Future of AI in Dev",
       description: "Integrating LLMs and generative AI tools into your daily development workflow.",
       tag: "AI & Future"
+    },
+    {
+      id: "TGhC6coyrZU",
+      title: "Advanced System Design",
+      description: "Deep dive into microservices architecture and high-availability patterns for enterprise systems.",
+      tag: "Architecture"
+    },
+    {
+      id: "vW_PXiJswPs",
+      title: "Scalable Backend Performance",
+      description: "Optimizing database interactions and implementing distributed caching for massive scale.",
+      tag: "Backend"
+    },
+    {
+      id: "Nls04PHDimM",
+      title: "Production Deployment Strategies",
+      description: "Mastering CI/CD pipelines, Docker containerization, and cloud infrastructure management.",
+      tag: "DevOps"
     }
   ];
 
@@ -44,7 +65,7 @@ export default function VideosPage() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+      <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
         {videoData.map((video, idx) => (
           <div key={idx} className="group bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all duration-500 shadow-xl shadow-slate-200/50 dark:shadow-none hover:shadow-2xl">
             <div className="relative aspect-video">
@@ -104,12 +125,17 @@ export default function VideosPage() {
             Our YouTube sessions are just the beginning. Join the Pro track for full project builds, certificates, and source code access.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <button className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-lg">
+            <Link to="/courses" className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-lg">
               Explore Pro Courses
-            </button>
-            <button className="px-8 py-4 bg-indigo-500 text-white rounded-2xl font-bold border border-indigo-400/30 hover:bg-indigo-400 transition-all">
+            </Link>
+            <a 
+              href="https://youtube.com/@techwithraju" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-8 py-4 bg-indigo-500 text-white rounded-2xl font-bold border border-indigo-400/30 hover:bg-indigo-400 transition-all"
+            >
               Watch More on YouTube
-            </button>
+            </a>
           </div>
         </div>
       </div>
