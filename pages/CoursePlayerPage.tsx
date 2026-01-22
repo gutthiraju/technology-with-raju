@@ -1,11 +1,9 @@
-
 import React, { useState } from 'react';
 import { useParams, Navigate } from 'react-router';
 import { useAuth } from '../App';
 import { COURSES } from '../constants';
 import { authService } from '../services/authService';
-import { Lesson } from '../types';
-import { Play, CheckCircle, ChevronRight, Lock, Share2, MessageSquare, Download, FileText, BookOpen, Info, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Play, CheckCircle, ChevronRight, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 export default function CoursePlayerPage() {
   const { id } = useParams();
@@ -41,6 +39,9 @@ export default function CoursePlayerPage() {
     try {
       if (!url) return "";
       
+      // If it's already a clean nocookie embed, return it as is
+      if (url.includes('youtube-nocookie.com/embed/')) return url;
+
       // Robust regex-based ID extraction to handle ?si=, ?v=, and embed/ formats
       let videoId = "";
       const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^/?#&]+)/);
@@ -95,11 +96,11 @@ export default function CoursePlayerPage() {
                 <div className="text-center p-8">
                   <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
                   <h3 className="text-white font-bold text-xl">Video Unavailable</h3>
-                  <p className="text-slate-400 text-sm mt-2">Could not load the requested content.</p>
+                  <p className="text-slate-400 text-sm mt-2">Could not load the requested content for this module.</p>
                 </div>
               </div>
             )}
-            <div className="absolute top-4 right-4 text-white/10 text-[10px] select-none pointer-events-none font-mono z-10">
+            <div className="absolute top-4 right-4 text-white/10 text-[10px] select-none pointer-events-none font-mono z-10 uppercase tracking-tighter">
               SECURE ACCESS | {state.user?.email || 'STUDENT'}
             </div>
           </div>
@@ -116,7 +117,7 @@ export default function CoursePlayerPage() {
             <div className="flex gap-2">
               <button 
                 onClick={(e) => handleToggleComplete(e, activeLesson)}
-                className={`flex items-center gap-2 px-4 py-2 border rounded-xl text-sm font-bold transition-all ${isLessonComplete(activeLesson) ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}
+                className={`flex items-center gap-2 px-4 py-2 border rounded-xl text-sm font-bold transition-all ${isLessonComplete(activeLesson) ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300'}`}
               >
                 <CheckCircle2 className={`w-4 h-4 ${isLessonComplete(activeLesson) ? 'fill-emerald-600 text-white' : ''}`} />
                 {isLessonComplete(activeLesson) ? 'Completed' : 'Mark Complete'}
