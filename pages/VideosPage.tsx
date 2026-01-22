@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { PlayCircle, Youtube, Info, Share2, ExternalLink } from 'lucide-react';
-// Added Link import to resolve the "Cannot find name 'Link'" error on lines 125 and 127
 import { Link } from 'react-router';
 
 export default function VideosPage() {
@@ -47,6 +45,12 @@ export default function VideosPage() {
       title: "Production Deployment Strategies",
       description: "Mastering CI/CD pipelines, Docker containerization, and cloud infrastructure management.",
       tag: "DevOps"
+    },
+    {
+      id: "Sarm2WVhQJE",
+      title: "Modern Cloud Native Design",
+      description: "Exploring resilient architecture using serverless, edge computing, and modern cloud primitives.",
+      tag: "Cloud Native"
     }
   ];
 
