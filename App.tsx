@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, Link } from 'react-router';
 import { authService } from './services/authService';
 import { AuthState, User } from './types';
-import { LogOut, LayoutDashboard, Menu, X, Rocket } from 'lucide-react';
+import { LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import CoursePlayerPage from './pages/CoursePlayerPage';
 import VideosPage from './pages/VideosPage';
+import ContactPage from './pages/ContactPage';
 
 // Context for Auth
 const AuthContext = createContext<{
@@ -42,6 +43,7 @@ const Navbar = () => {
     { name: 'Video', path: '/videos' },
     { name: 'Courses', path: '/courses' },
     { name: 'Pricing', path: '/pricing' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
@@ -49,11 +51,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="bg-indigo-600 p-2 rounded-lg">
-                <Rocket className="w-6 h-6 text-white" />
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-900 border border-slate-800 logo-glow flex items-center justify-center p-0.5">
+                <img src="logo.png" alt="TR Logo" className="w-full h-full object-contain" onError={(e) => {
+                  (e.target as HTMLImageElement).src = "https://placehold.co/100x100/1e293b/white?text=TR";
+                }} />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-pink-500 via-indigo-500 to-cyan-500 bg-clip-text text-transparent group-hover:opacity-80 transition-opacity">
                 Tech With Raju
               </span>
             </Link>
@@ -145,6 +149,7 @@ export default function App() {
               <Route path="/videos" element={<VideosPage />} />
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={authState.isAuthenticated ? <Navigate to="/dashboard" /> : <LoginPage />} />
               <Route path="/dashboard" element={
                 <ProtectedRoute>
@@ -162,16 +167,20 @@ export default function App() {
           <footer className="bg-slate-900 text-white py-12 px-4 mt-auto">
             <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
               <div className="col-span-2">
-                <div className="flex items-center space-x-2 mb-4">
-                  <Rocket className="w-8 h-8 text-indigo-400" />
-                  <span className="text-2xl font-bold">Tech With Raju</span>
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-800 border border-slate-700 logo-glow flex items-center justify-center p-0.5">
+                    <img src="logo.png" alt="TR Logo" className="w-full h-full object-contain" onError={(e) => {
+                      (e.target as HTMLImageElement).src = "https://placehold.co/100x100/1e293b/white?text=TR";
+                    }} />
+                  </div>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">Tech With Raju</span>
                 </div>
                 <p className="text-slate-400 max-w-sm mb-6 leading-relaxed">
                   Empowering students with industry-grade coding skills. Real projects, secure platform, and expert guidance from industry leaders.
                 </p>
               </div>
               <div>
-                <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+                <h4 className="text-lg font-semibold mb-4 text-slate-200">Quick Links</h4>
                 <ul className="space-y-2 text-slate-400">
                   <li><Link to="/courses" className="hover:text-indigo-400 transition-colors">Browse Courses</Link></li>
                   <li><Link to="/pricing" className="hover:text-indigo-400 transition-colors">Pricing Plans</Link></li>
@@ -179,9 +188,9 @@ export default function App() {
                 </ul>
               </div>
               <div>
-                <h4 className="text-lg font-semibold mb-4">Support</h4>
+                <h4 className="text-lg font-semibold mb-4 text-slate-200">Support</h4>
                 <ul className="space-y-2 text-slate-400">
-                  <li><a href="#" className="hover:text-indigo-400 transition-colors">Contact Us</a></li>
+                  <li><Link to="/contact" className="hover:text-indigo-400 transition-colors">Contact Us</Link></li>
                   <li><a href="#" className="hover:text-indigo-400 transition-colors">Terms of Service</a></li>
                   <li><a href="#" className="hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
                 </ul>
