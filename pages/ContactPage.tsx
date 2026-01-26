@@ -76,7 +76,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                   <a 
-                    href="tel:8989899123" 
+                    href="tel:9346776004" 
                     className="w-full sm:w-auto flex items-center justify-center gap-3 bg-indigo-600 text-white px-8 py-5 rounded-2xl font-bold text-xl hover:bg-indigo-700 hover:shadow-2xl hover:shadow-indigo-200 transition-all active:scale-95"
                   >
                     <Phone className="w-6 h-6" />
@@ -108,39 +108,30 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Quick Inquiry Form Side */}
+          {/* Quick Inquiry CTA Section */}
           <div className="space-y-8">
-            <div className="bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-indigo-200 overflow-hidden relative">
-              <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
-              <h3 className="text-2xl font-bold mb-4">Quick Inquiry</h3>
-              <p className="text-indigo-100 text-sm mb-8">Drop your details for Online/Offline class queries.</p>
+            <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-indigo-200 overflow-hidden relative group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-xl"></div>
               
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                  <input 
-                    type="text" 
-                    placeholder="Full Name" 
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 placeholder:text-white/50 focus:outline-none focus:bg-white/20"
-                  />
+              <div className="relative z-10">
+                <div className="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                  <Send className="w-8 h-8" />
                 </div>
-                <div>
-                  <input 
-                    type="email" 
-                    placeholder="Email Address" 
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 placeholder:text-white/50 focus:outline-none focus:bg-white/20"
-                  />
-                </div>
-                <div>
-                  <select className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white/50 focus:outline-none focus:bg-white/20 appearance-none">
-                    <option className="text-slate-900">Interest: Offline Bootcamp</option>
-                    <option className="text-slate-900">Interest: Online Track</option>
-                    <option className="text-slate-900">Interest: Live Career Mentoring</option>
-                  </select>
-                </div>
-                <button className="w-full bg-white text-indigo-600 py-4 rounded-xl font-bold hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2 shadow-lg">
-                  Send Inquiry <Send className="w-4 h-4" />
-                </button>
-              </form>
+                <h3 className="text-3xl font-bold mb-4">Quick Inquiry</h3>
+                <p className="text-indigo-100 mb-8 leading-relaxed">
+                  Interested in our Offline Bootcamps or Online tracks? Fill out our quick interest form and our team will get back to you within 24 hours.
+                </p>
+                <a 
+                  href="https://forms.gle/xPzutj8wPuAxo9hW8" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white text-indigo-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-50 transition-all shadow-xl group/btn"
+                >
+                  Open Inquiry Form 
+                  <ExternalLink className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                </a>
+              </div>
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800 shadow-sm">
