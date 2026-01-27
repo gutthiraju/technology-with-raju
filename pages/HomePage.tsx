@@ -20,7 +20,7 @@ export default function HomePage() {
           <div className="flex-1 space-y-8 text-center lg:text-left">
             <div className="inline-flex items-center space-x-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-full font-semibold text-sm border border-indigo-100 dark:border-indigo-800">
               <Zap className="w-4 h-4" />
-              <span>Technology With Raju | 2025 Mastery</span>
+              <span>Technology with Raju | 2025 Mastery</span>
             </div>
             <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 dark:text-white leading-tight">
               Master the Art of <span className="bg-gradient-to-r from-pink-600 to-indigo-600 bg-clip-text text-transparent">Secure</span> Engineering

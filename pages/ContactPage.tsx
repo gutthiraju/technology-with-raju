@@ -64,15 +64,34 @@ export default function ContactPage() {
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center gap-12 group">
               <div className="shrink-0 relative">
-                <div className="w-32 h-32 md:w-48 md:h-48 rounded-[2rem] overflow-hidden border-4 border-indigo-50 shadow-xl shadow-indigo-100 group-hover:scale-105 transition-transform duration-500">
-                  <img src="https://picsum.photos/seed/raju-contact/400/400" alt="Raju Coding Expert" className="w-full h-full object-cover" />
+                <div className="w-40 h-40 md:w-56 md:h-56 rounded-[2.5rem] overflow-hidden border-4 border-indigo-50 dark:border-slate-800 shadow-2xl shadow-indigo-100 dark:shadow-none group-hover:scale-105 transition-transform duration-500 logo-glow bg-slate-100 dark:bg-slate-800">
+                  <img 
+                    src="profile.jpeg" 
+                    alt="Technology with Raju" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      // Fallback sequence: profile.jpeg -> images/profile.jpeg -> profile.jpg -> images/profile.jpg -> placeholder
+                      if (target.src.endsWith('profile.jpeg') && !target.src.includes('images/')) {
+                        target.src = 'images/profile.jpeg';
+                      } else if (target.src.includes('images/profile.jpeg')) {
+                        target.src = 'profile.jpg';
+                      } else if (target.src.endsWith('profile.jpg') && !target.src.includes('images/')) {
+                        target.src = 'images/profile.jpg';
+                      } else if (!target.src.includes('placehold.co')) {
+                        target.src = "https://placehold.co/400x400/1e293b/white?text=Raju";
+                      }
+                    }}
+                  />
                 </div>
-                <div className="absolute -bottom-2 -right-2 bg-emerald-500 w-8 h-8 rounded-full border-4 border-white dark:border-slate-900 animate-pulse"></div>
+                <div className="absolute -bottom-2 -right-2 bg-emerald-500 w-10 h-10 rounded-full border-4 border-white dark:border-slate-900 animate-pulse flex items-center justify-center">
+                  <div className="w-3 h-3 bg-white rounded-full"></div>
+                </div>
               </div>
               <div className="flex-1 text-center md:text-left space-y-6">
                 <div>
                   <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Speak Directly to Raju</h2>
-                  <p className="text-slate-500 dark:text-slate-400 text-lg">Contact for Offline Bootcamps, Online classes, and Live career purpose sessions.</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">Contact for Offline Bootcamps, Online classes, and Live sessions for your engineering career roadmap.</p>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                   <a 

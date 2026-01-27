@@ -133,7 +133,7 @@ export default function VideosPage() {
               Explore Pro Courses
             </Link>
             <a 
-              href="https://youtube.com/@techwithraju" 
+              href="https://www.youtube.com/@Technology_with_Raju10" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="px-8 py-4 bg-indigo-500 text-white rounded-2xl font-bold border border-indigo-400/30 hover:bg-indigo-400 transition-all"

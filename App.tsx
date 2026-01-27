@@ -58,7 +58,7 @@ const Navbar = () => {
                 }} />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-pink-500 via-indigo-500 to-cyan-500 bg-clip-text text-transparent group-hover:opacity-80 transition-opacity">
-                Tech With Raju
+                Technology with Raju
               </span>
             </Link>
           </div>
@@ -173,7 +173,7 @@ export default function App() {
                       (e.target as HTMLImageElement).src = "https://placehold.co/100x100/1e293b/white?text=TR";
                     }} />
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">Tech With Raju</span>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">Technology with Raju</span>
                 </div>
                 <p className="text-slate-400 max-w-sm mb-6 leading-relaxed">
                   Empowering students with industry-grade coding skills. Real projects, secure platform, and expert guidance from industry leaders.
