@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { ArrowRight, CheckCircle2, Star, Users, PlayCircle, Code, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Star, Users, PlayCircle, Code, ShieldCheck, Zap, Award, ExternalLink, Globe } from 'lucide-react';
 
 export default function HomePage() {
   const INTRO_VIDEO_ID = "ncztz61eBlg";
@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative py-16 lg:py-24 px-4">
+      <section className="relative py-16 lg:py-24 px-4 bg-white dark:bg-slate-950">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 opacity-15 pointer-events-none">
           <div className="absolute top-10 left-10 w-96 h-96 bg-pink-500 rounded-full blur-[120px]"></div>
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500 rounded-full blur-[120px]"></div>
@@ -38,7 +38,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex-1 w-full max-w-2xl">
+          <div className="flex-1 w-full max-w-2xl relative">
              <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-indigo-500 to-cyan-500 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
                 <div className="relative bg-slate-950 rounded-3xl shadow-2xl overflow-hidden border border-slate-800 ring-1 ring-white/10">
@@ -57,14 +57,12 @@ export default function HomePage() {
                   </div>
                   <div className="bg-slate-900/90 backdrop-blur-md p-4 flex items-center justify-between border-t border-white/5">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-500 logo-glow bg-slate-800">
-                        <img src="logo.png" alt="Raju Logo" className="w-full h-full object-contain" onError={(e) => {
-                          (e.target as HTMLImageElement).src = "https://placehold.co/100x100/1e293b/white?text=TR";
-                        }} />
+                      <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center text-indigo-400">
+                        <Globe className="w-6 h-6" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white">Raju's Masterclass</div>
-                        <div className="text-[10px] text-slate-400">Engineering Secrets • 2025 Edition</div>
+                        <div className="text-xs font-bold text-white uppercase tracking-wider">Engineering Masterclass</div>
+                        <div className="text-[10px] text-slate-400">SDLC • Architecture • Security</div>
                       </div>
                     </div>
                   </div>
@@ -75,25 +73,42 @@ export default function HomePage() {
       </section>
 
       {/* Feature Section */}
-      <section className="py-20 bg-slate-100 dark:bg-slate-900/50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-slate-900 dark:text-white">The Raju Methodology</h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">We focus on long-term engineering excellence, not just temporary syntax memorization.</p>
+          <div className="text-center mb-20 space-y-4">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white">The Raju Methodology</h2>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">We focus on long-term engineering excellence, not just temporary syntax memorization.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {[
-              { icon: <ShieldCheck className="w-8 h-8 text-pink-500" />, title: "Secure Architecture", desc: "Build systems resilient to modern threats, mastering OAuth2, JWT, and Encryption." },
-              { icon: <Code className="w-8 h-8 text-indigo-500" />, title: "Industrial SDLC", desc: "Experience the complete product lifecycle from requirement specs to automated CI/CD." },
-              { icon: <Users className="w-8 h-8 text-cyan-500" />, title: "Elite Community", desc: "Access our private network of engineers working at top-tier global product firms." }
+              { icon: <ShieldCheck className="w-12 h-12 text-pink-500" />, title: "Secure Architecture", desc: "Build systems resilient to modern threats, mastering OAuth2, JWT, and Advanced Encryption." },
+              { icon: <Code className="w-12 h-12 text-indigo-500" />, title: "Industrial SDLC", desc: "Experience the complete product lifecycle from requirement specs to automated CI/CD pipelines." },
+              { icon: <Users className="w-12 h-12 text-cyan-500" />, title: "Elite Community", desc: "Access our private network of engineers working at top-tier global product firms." }
             ].map((f, i) => (
-              <div key={i} className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all group">
-                <div className="mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-transform">{f.icon}</div>
-                <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">{f.title}</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+              <div key={i} className="bg-white dark:bg-slate-800 p-10 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-2xl transition-all group hover:-translate-y-2 duration-500">
+                <div className="mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform">{f.icon}</div>
+                <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">{f.title}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Trust & Stats Section */}
+      <section className="py-20 bg-white dark:bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
+           {[
+             { label: "Students", value: "50,000+" },
+             { label: "Hours Content", value: "500+" },
+             { label: "Success Rate", value: "94%" },
+             { label: "Community", value: "Global" }
+           ].map((stat, i) => (
+             <div key={i} className="text-center p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800">
+                <div className="text-3xl font-black text-indigo-600 mb-1">{stat.value}</div>
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
+             </div>
+           ))}
         </div>
       </section>
     </div>

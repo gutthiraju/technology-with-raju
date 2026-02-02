@@ -34,6 +34,19 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren<{}>) => {
   return <>{children}</>;
 };
 
+const BrandLogo = ({ className = "w-10 h-10" }: { className?: string }) => (
+  <div className={`${className} rounded-xl overflow-hidden bg-slate-900 flex items-center justify-center p-1.5 shadow-lg shadow-indigo-500/20`}>
+    <img 
+      src="logo.png" 
+      alt="TR Logo" 
+      className="w-full h-full object-contain" 
+      onError={(e) => {
+        (e.target as HTMLImageElement).src = "https://placehold.co/100x100/1e293b/white?text=TR";
+      }} 
+    />
+  </div>
+);
+
 const Navbar = () => {
   const { state, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
@@ -52,11 +65,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-900 border border-slate-800 logo-glow flex items-center justify-center p-0.5">
-                <img src="logo.png" alt="TR Logo" className="w-full h-full object-contain" onError={(e) => {
-                  (e.target as HTMLImageElement).src = "https://placehold.co/100x100/1e293b/white?text=TR";
-                }} />
-              </div>
+              <BrandLogo />
               <span className="text-xl font-bold bg-gradient-to-r from-pink-500 via-indigo-500 to-cyan-500 bg-clip-text text-transparent group-hover:opacity-80 transition-opacity">
                 Technology with Raju
               </span>
@@ -168,11 +177,7 @@ export default function App() {
             <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
               <div className="col-span-2">
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-800 border border-slate-700 logo-glow flex items-center justify-center p-0.5">
-                    <img src="logo.png" alt="TR Logo" className="w-full h-full object-contain" onError={(e) => {
-                      (e.target as HTMLImageElement).src = "https://placehold.co/100x100/1e293b/white?text=TR";
-                    }} />
-                  </div>
+                  <BrandLogo className="w-12 h-12" />
                   <span className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">Technology with Raju</span>
                 </div>
                 <p className="text-slate-400 max-w-sm mb-6 leading-relaxed">

@@ -5,6 +5,12 @@ import { Link } from 'react-router';
 export default function VideosPage() {
   const videoData = [
     {
+      id: "C_iQ_WisPhQ",
+      title: "Html class 1",
+      description: "Foundation of web development. Learn the core principles of HTML5, document structure, and semantic elements for building robust web applications.",
+      tag: "Frontend"
+    },
+    {
       id: "s47MXfRyV34",
       title: "Mastering the Tech Interview",
       description: "Deep dive into data structures and algorithms commonly asked at FAANG companies.",
