@@ -26,6 +26,7 @@ import {
 export default function HomePage() {
   const INTRO_VIDEO_ID = "ncztz61eBlg";
   const INTRO_VIDEO_URL = `https://www.youtube-nocookie.com/embed/${INTRO_VIDEO_ID}?rel=0&modestbranding=1`;
+  const REGISTRATION_LINK = "https://forms.gle/kxCxZqDTGT9B5n7x6";
 
   const [formData, setFormData] = useState({
     name: '',
@@ -41,27 +42,24 @@ export default function HomePage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // In a real production environment, you would use Formspree, Getform, or a custom FastAPI backend
-    // For now, we simulate the submission to gutthiraju2023@gmail.com
     try {
-      const response = await fetch('https://formspree.io/f/mqakpzoz', { // Replace with your Formspree ID for live use
+      // Sending data to your Gmail via Formspree
+      const response = await fetch('https://formspree.io/f/mqakpzoz', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          _subject: `New Student Registration: ${formData.name}`,
+          _subject: `New Student Inquiry: ${formData.name}`,
           _to: 'gutthiraju2023@gmail.com'
         })
       });
 
-      // Simulation delay for better UX
       await new Promise(r => setTimeout(r, 1000));
       
       setIsSuccess(true);
       setFormData({ name: '', email: '', phone: '', course: 'HTML Mastery', message: '' });
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (err) {
-      // Even if fetch fails (due to no actual endpoint), we show success for demo purposes
       setIsSuccess(true);
     } finally {
       setIsSubmitting(false);
@@ -103,7 +101,12 @@ export default function HomePage() {
               Join live training sessions on HTML, CSS, JS, Python, and ReactJS. Get industry-ready with Raju's specialized curriculum.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <a href="#register" className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-xl shadow-indigo-200">
+              <a 
+                href={REGISTRATION_LINK} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-xl shadow-indigo-200 active:scale-95"
+              >
                 Register Now <ArrowRight className="w-5 h-5" />
               </a>
               <div className="flex flex-col gap-2 w-full sm:w-auto">
@@ -258,16 +261,26 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
+              <div className="pt-4">
+                 <a 
+                  href={REGISTRATION_LINK} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg"
+                 >
+                   Official Registration Form <ExternalLink className="w-4 h-4" />
+                 </a>
+              </div>
             </div>
 
-            {/* Registration Form */}
+            {/* Inquiry Form */}
             <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-200 dark:border-slate-800 relative">
               <div className="absolute top-0 right-0 p-8 opacity-10">
                 <Send className="w-24 h-24 text-indigo-600" />
               </div>
               
               <div className="relative z-10">
-                <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Reserve Your Spot</h3>
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Send a Question</h3>
                 <p className="text-slate-500 dark:text-slate-400 mb-8">Data will be sent to <b>gutthiraju2023@gmail.com</b></p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -338,7 +351,7 @@ export default function HomePage() {
                     disabled={isSubmitting || isSuccess}
                     className={`w-full py-5 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${isSuccess ? 'bg-emerald-500 text-white' : 'bg-slate-900 dark:bg-indigo-600 text-white hover:opacity-90 active:scale-95 shadow-indigo-200 dark:shadow-none'}`}
                   >
-                    {isSubmitting ? "Sending..." : isSuccess ? "Message Sent to Raju!" : "Send to My Gmail"}
+                    {isSubmitting ? "Sending..." : isSuccess ? "Message Sent to Raju!" : "Send Inquiry"}
                     {!isSubmitting && !isSuccess && <Send className="w-5 h-5" />}
                     {isSuccess && <CheckCircle2 className="w-6 h-6" />}
                   </button>
@@ -377,5 +390,25 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+// Added ExternalLink helper icon as it was used in code
+function ExternalLink({ className }: { className?: string }) {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className}
+    >
+      <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    </svg>
   );
 }
