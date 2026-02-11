@@ -21,10 +21,10 @@ export default function ContactPage() {
       benefit: "In-person mentorship"
     },
     {
-      icon: <Video className="w-8 h-8 text-violet-600" />,
-      title: "Online Mastery",
-      desc: "Structured recorded tracks and live coding sessions from the comfort of your home.",
-      benefit: "Flexible schedule"
+      icon: <Mail className="w-8 h-8 text-violet-600" />,
+      title: "Email Support",
+      desc: "Send your technical queries directly to gutthiraju2023@gmail.com for detailed guidance.",
+      benefit: "24-hour response"
     },
     {
       icon: <Clock className="w-8 h-8 text-emerald-600" />,
@@ -71,14 +71,7 @@ export default function ContactPage() {
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      // Fallback sequence: profile.jpeg -> images/profile.jpeg -> profile.jpg -> images/profile.jpg -> placeholder
-                      if (target.src.endsWith('profile.jpeg') && !target.src.includes('images/')) {
-                        target.src = 'images/profile.jpeg';
-                      } else if (target.src.includes('images/profile.jpeg')) {
-                        target.src = 'profile.jpg';
-                      } else if (target.src.endsWith('profile.jpg') && !target.src.includes('images/')) {
-                        target.src = 'images/profile.jpg';
-                      } else if (!target.src.includes('placehold.co')) {
+                      if (!target.src.includes('placehold.co')) {
                         target.src = "https://placehold.co/400x400/1e293b/white?text=Raju";
                       }
                     }}
@@ -93,7 +86,7 @@ export default function ContactPage() {
                   <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Speak Directly to Raju</h2>
                   <p className="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">Contact for Offline Bootcamps, Online classes, and Live sessions for your engineering career roadmap.</p>
                 </div>
-                <div className="flex flex-col sm:flex-row items-center gap-4">
+                <div className="flex flex-col gap-4">
                   <a 
                     href="tel:9346776004" 
                     className="w-full sm:w-auto flex items-center justify-center gap-3 bg-indigo-600 text-white px-8 py-5 rounded-2xl font-bold text-xl hover:bg-indigo-700 hover:shadow-2xl hover:shadow-indigo-200 transition-all active:scale-95"
@@ -101,7 +94,13 @@ export default function ContactPage() {
                     <Phone className="w-6 h-6" />
                     9346776004
                   </a>
-                  <p className="text-slate-400 text-sm font-medium">Available Mon - Sat (10 AM - 7 PM IST)</p>
+                  <a 
+                    href="mailto:gutthiraju2023@gmail.com" 
+                    className="flex items-center justify-center md:justify-start gap-2 text-indigo-600 font-bold hover:underline"
+                  >
+                    <Mail className="w-5 h-5" />
+                    gutthiraju2023@gmail.com
+                  </a>
                 </div>
                 <div className="flex flex-wrap justify-center md:justify-start gap-3">
                   <span className="bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400">Offline Bootcamp</span>
@@ -137,17 +136,15 @@ export default function ContactPage() {
                 <div className="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
                   <Send className="w-8 h-8" />
                 </div>
-                <h3 className="text-3xl font-bold mb-4">Quick Inquiry</h3>
+                <h3 className="text-3xl font-bold mb-4">Quick Email</h3>
                 <p className="text-indigo-100 mb-8 leading-relaxed">
-                  Interested in our Offline Bootcamps or Online tracks? Fill out our quick interest form and our team will get back to you within 24 hours.
+                  Have a specific technical question? Send an email to <b>gutthiraju2023@gmail.com</b> and I'll personally respond.
                 </p>
                 <a 
-                  href="https://forms.gle/xPzutj8wPuAxo9hW8" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
+                  href="mailto:gutthiraju2023@gmail.com?subject=Inquiry from Technology with Raju Website" 
                   className="inline-flex items-center gap-3 bg-white text-indigo-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-50 transition-all shadow-xl group/btn"
                 >
-                  Open Inquiry Form 
+                  Compose Email 
                   <ExternalLink className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
               </div>

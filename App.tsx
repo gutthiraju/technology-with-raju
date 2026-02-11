@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, Link } from 'react-router';
 import { authService } from './services/authService';
 import { AuthState, User } from './types';
-import { LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
+import { LogOut, LayoutDashboard, Menu, X, Mail, Phone } from 'lucide-react';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -183,6 +183,14 @@ export default function App() {
                 <p className="text-slate-400 max-w-sm mb-6 leading-relaxed">
                   Empowering students with industry-grade coding skills. Real projects, secure platform, and expert guidance from industry leaders.
                 </p>
+                <div className="flex flex-col gap-2">
+                  <a href="mailto:gutthiraju2023@gmail.com" className="text-indigo-400 hover:underline flex items-center gap-2 text-sm">
+                    <Mail className="w-4 h-4" /> gutthiraju2023@gmail.com
+                  </a>
+                  <a href="tel:9346776004" className="text-slate-400 hover:text-white flex items-center gap-2 text-sm transition-colors">
+                    <Phone className="w-4 h-4" /> +91 93467 76004
+                  </a>
+                </div>
               </div>
               <div>
                 <h4 className="text-lg font-semibold mb-4 text-slate-200">Quick Links</h4>

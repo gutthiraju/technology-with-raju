@@ -1,151 +1,156 @@
 import React from 'react';
-import { PlayCircle, Youtube, Info, Share2, ExternalLink } from 'lucide-react';
+import { PlayCircle, Youtube, Info, Share2, ExternalLink, BookOpen, Clock, Tag } from 'lucide-react';
 import { Link } from 'react-router';
 
 export default function VideosPage() {
+  // Curated list of 6 sessions for "Technology with Raju" channel content
   const videoData = [
     {
       id: "C_iQ_WisPhQ",
-      title: "Html class 1",
-      description: "Foundation of web development. Learn the core principles of HTML5, document structure, and semantic elements for building robust web applications.",
-      tag: "Frontend"
+      title: "Html class 1: The Foundation",
+      description: "Step into the world of web development. This first class covers the absolute essentials of HTML5, tags, and document structure needed to build modern websites.",
+      tag: "Frontend Mastery",
+      duration: "45 mins"
     },
     {
-      id: "s47MXfRyV34",
-      title: "Mastering the Tech Interview",
-      description: "Deep dive into data structures and algorithms commonly asked at FAANG companies.",
-      tag: "Career"
+      id: "ncztz61eBlg",
+      title: "Web Dev Roadmap 2025",
+      description: "A complete architectural breakdown of the Software Development Life Cycle (SDLC). Learn the path from a beginner to a professional Software Engineer in 2025.",
+      tag: "Career Roadmap",
+      duration: "60 mins"
     },
     {
       id: "lJzZEBsJLWk",
       title: "Full Stack Architecture 2025",
-      description: "How to design scalable systems that handle millions of requests per second.",
-      tag: "Architecture"
-    },
-    {
-      id: "5RHjgCh72Qk",
-      title: "Frontend Engineering Secrets",
-      description: "Advanced React patterns and performance optimization techniques for modern web apps.",
-      tag: "Frontend"
-    },
-    {
-      id: "dt1GGd262eQ",
-      title: "The Future of AI in Dev",
-      description: "Integrating LLMs and generative AI tools into your daily development workflow.",
-      tag: "AI & Future"
-    },
-    {
-      id: "TGhC6coyrZU",
-      title: "Advanced System Design",
-      description: "Deep dive into microservices architecture and high-availability patterns for enterprise systems.",
-      tag: "Architecture"
+      description: "Master the patterns used by global product companies. Learn how to connect frontend, backend, and databases with high security and low latency.",
+      tag: "Architecture",
+      duration: "55 mins"
     },
     {
       id: "vW_PXiJswPs",
       title: "Scalable Backend Performance",
-      description: "Optimizing database interactions and implementing distributed caching for massive scale.",
-      tag: "Backend"
+      description: "Deep dive into Node.js and Python performance tuning. Learn how to handle millions of requests while maintaining data integrity and security.",
+      tag: "Backend Systems",
+      duration: "50 mins"
     },
     {
       id: "Nls04PHDimM",
       title: "Production Deployment Strategies",
-      description: "Mastering CI/CD pipelines, Docker containerization, and cloud infrastructure management.",
-      tag: "DevOps"
+      description: "Go beyond localhost. Learn CI/CD pipelines, Docker containerization, and the secrets of zero-downtime deployments for production apps.",
+      tag: "DevOps",
+      duration: "42 mins"
     },
     {
       id: "Sarm2WVhQJE",
       title: "Modern Cloud Native Design",
-      description: "Exploring resilient architecture using serverless, edge computing, and modern cloud primitives.",
-      tag: "Cloud Native"
+      description: "Explore the future of infrastructure. We cover Serverless, Edge computing, and Microservices architecture for modern engineering teams.",
+      tag: "Cloud Native",
+      duration: "48 mins"
     }
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-red-100 dark:border-red-800">
-          <Youtube className="w-4 h-4" />
-          <span>Curated Sessions</span>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full text-xs font-bold uppercase tracking-widest mb-4 border border-red-100 dark:border-red-800">
+            <Youtube className="w-4 h-4" />
+            <span>Official Channel Sessions</span>
+          </div>
+          <h1 className="text-4xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6">
+            Raju's Engineering <span className="text-indigo-600">Vault</span>
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400 max-w-3xl mx-auto text-lg lg:text-xl leading-relaxed">
+            6 specialized sessions designed to take you from a coder to a Software Architect. Master the skills that matter in the modern tech industry.
+          </p>
         </div>
-        <h1 className="text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
-          Exclusive Engineering <span className="text-indigo-600">Insights</span>
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
-          Explore our collection of high-impact technical sessions led by Raju and industry guests.
-        </p>
-      </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
-        {videoData.map((video, idx) => (
-          <div key={idx} className="group bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all duration-500 shadow-xl shadow-slate-200/50 dark:shadow-none hover:shadow-2xl">
-            <div className="relative aspect-video">
-              <iframe 
-                width="100%" 
-                height="100%" 
-                src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0&modestbranding=1`}
-                title={video.title}
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
-            </div>
-            <div className="p-8">
-              <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold rounded-lg uppercase tracking-widest border border-indigo-100 dark:border-indigo-800">
-                  {video.tag}
-                </span>
-                <div className="flex gap-2">
-                  <button className="p-2 text-slate-400 hover:text-indigo-600 transition-colors">
-                    <Share2 className="w-4 h-4" />
-                  </button>
-                  <a 
-                    href={`https://youtu.be/${video.id}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-2 text-slate-400 hover:text-indigo-600 transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+        {/* Video Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {videoData.map((video, idx) => (
+            <div key={idx} className="group bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all duration-500 shadow-xl shadow-slate-200/30 dark:shadow-none hover:shadow-2xl flex flex-col">
+              <div className="relative aspect-video bg-black overflow-hidden">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0&modestbranding=1`}
+                  title={video.title}
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowFullScreen
+                  className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                ></iframe>
+                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Clock className="w-3 h-3 text-indigo-400" /> {video.duration}
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 transition-colors">
-                {video.title}
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                {video.description}
-              </p>
-              <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2 text-xs font-medium text-slate-400">
-                <Info className="w-4 h-4" />
-                <span>Premium educational content by Technology with Raju</span>
+              <div className="p-8 flex-1 flex flex-col">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="flex items-center gap-1.5 text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">
+                    <Tag className="w-3 h-3" /> {video.tag}
+                  </span>
+                  <div className="flex gap-2">
+                    <button className="p-2 text-slate-400 hover:text-indigo-600 transition-colors" title="Share">
+                      <Share2 className="w-4 h-4" />
+                    </button>
+                    <a 
+                      href={`https://youtu.be/${video.id}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="p-2 text-slate-400 hover:text-indigo-600 transition-colors"
+                      title="Open on YouTube"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 transition-colors line-clamp-1">
+                  {video.title}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                  {video.description}
+                </p>
+                <div className="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">
+                    <Info className="w-3 h-3 text-indigo-500" />
+                    <span>Free Masterclass</span>
+                  </div>
+                  <Link to="/courses" className="text-indigo-600 font-bold text-xs hover:underline flex items-center gap-1">
+                    Get Source Code <PlayCircle className="w-3 h-3" />
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="mt-20 bg-gradient-to-r from-indigo-600 to-violet-700 rounded-[2.5rem] p-12 text-center text-white relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
-        
-        <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-          <PlayCircle className="w-16 h-16 mx-auto opacity-50" />
-          <h2 className="text-3xl font-bold">Want Full Mastery?</h2>
-          <p className="text-indigo-100 text-lg">
-            Our YouTube sessions are just the beginning. Join the Pro track for full project builds, certificates, and source code access.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <Link to="/courses" className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-lg">
-              Explore Pro Courses
-            </Link>
-            <a 
-              href="https://www.youtube.com/@Technology_with_Raju10" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="px-8 py-4 bg-indigo-500 text-white rounded-2xl font-bold border border-indigo-400/30 hover:bg-indigo-400 transition-all"
-            >
-              Watch More on YouTube
-            </a>
+        {/* CTA Section */}
+        <div className="mt-24">
+          <div className="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-[3rem] p-10 lg:p-16 text-center text-white relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2"></div>
+            
+            <div className="relative z-10 max-w-3xl mx-auto space-y-8">
+              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6 backdrop-blur-xl border border-white/20">
+                <Youtube className="w-8 h-8 text-red-500" />
+              </div>
+              <h2 className="text-3xl lg:text-5xl font-black">Join 50K+ Subscribers</h2>
+              <p className="text-slate-300 text-lg lg:text-xl">
+                Get notified every time Raju drops a new engineering masterclass. Practical coding, no fluff.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+                <a 
+                  href="https://www.youtube.com/@Technology_with_Raju10" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="px-10 py-5 bg-red-600 text-white rounded-2xl font-black text-lg hover:bg-red-700 transition-all shadow-xl shadow-red-900/40 flex items-center justify-center gap-3 active:scale-95"
+                >
+                  Subscribe Now
+                </a>
+                <Link to="/courses" className="px-10 py-5 bg-white text-slate-900 rounded-2xl font-black text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-3 active:scale-95">
+                  Pro Courses
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
