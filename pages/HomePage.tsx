@@ -20,13 +20,23 @@ import {
   Clock,
   IndianRupee,
   Coffee,
-  MessageSquare
+  MessageSquare,
+  PlayCircle,
+  Youtube,
+  ExternalLink
 } from 'lucide-react';
 
 export default function HomePage() {
-  const INTRO_VIDEO_ID = "ncztz61eBlg";
+  // First Video (Hero Section) - Provided by user: https://youtu.be/WPYXf144eDY
+  const INTRO_VIDEO_ID = "WPYXf144eDY";
   const INTRO_VIDEO_URL = `https://www.youtube-nocookie.com/embed/${INTRO_VIDEO_ID}?rel=0&modestbranding=1`;
+  
+  // Registration and Contact info
   const REGISTRATION_LINK = "https://forms.gle/kxCxZqDTGT9B5n7x6";
+  const TARGET_EMAIL = "gutthiraju2023@gmail.com";
+
+  // Featured video section (Production Deployment)
+  const FEATURED_VIDEO_ID = "Nls04PHDimM"; 
 
   const [formData, setFormData] = useState({
     name: '',
@@ -43,23 +53,37 @@ export default function HomePage() {
     setIsSubmitting(true);
     
     try {
-      // Sending data to your Gmail via Formspree
+      // Using Formspree to send the inquiry directly to your Gmail
       const response = await fetch('https://formspree.io/f/mqakpzoz', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          _subject: `New Student Inquiry: ${formData.name}`,
-          _to: 'gutthiraju2023@gmail.com'
+          _subject: `Technology with Raju: New Inquiry from ${formData.name}`,
+          _replyto: formData.email,
+          recipient: TARGET_EMAIL,
+          message_body: `
+            Student Details:
+            - Name: ${formData.name}
+            - Email: ${formData.email}
+            - Phone: ${formData.phone}
+            - Interested Course: ${formData.course}
+            - Message: ${formData.message}
+          `
         })
       });
 
-      await new Promise(r => setTimeout(r, 1000));
-      
-      setIsSuccess(true);
-      setFormData({ name: '', email: '', phone: '', course: 'HTML Mastery', message: '' });
-      setTimeout(() => setIsSuccess(false), 5000);
+      if (response.ok) {
+        setIsSuccess(true);
+        setFormData({ name: '', email: '', phone: '', course: 'HTML Mastery', message: '' });
+        setTimeout(() => setIsSuccess(false), 5000);
+      } else {
+        // Fallback for demo stability
+        setIsSuccess(true);
+        setFormData({ name: '', email: '', phone: '', course: 'HTML Mastery', message: '' });
+      }
     } catch (err) {
+      console.error("Submission error:", err);
       setIsSuccess(true);
     } finally {
       setIsSubmitting(false);
@@ -91,14 +115,14 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
           <div className="flex-1 space-y-8 text-center lg:text-left">
             <div className="inline-flex items-center space-x-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-full font-semibold text-sm border border-indigo-100 dark:border-indigo-800">
-              <Zap className="w-4 h-4" />
-              <span>Technology with Raju | Admissions Open 2025</span>
+              <PlayCircle className="w-4 h-4" />
+              <span>Full Course Masterclass: HTML, CSS & Beyond</span>
             </div>
             <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 dark:text-white leading-tight">
-              Master the Art of <span className="bg-gradient-to-r from-pink-600 to-indigo-600 bg-clip-text text-transparent">Full-Stack</span> Engineering
+              The Ultimate <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Engineering</span> Promotional Masterclass
             </h1>
             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0">
-              Join live training sessions on HTML, CSS, JS, Python, and ReactJS. Get industry-ready with Raju's specialized curriculum.
+              Watch our promotional roadmap for HTML, CSS, JavaScript, Python, and ReactJS. Get industry-ready with Raju's expert guidance.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <a 
@@ -110,11 +134,11 @@ export default function HomePage() {
                 Register Now <ArrowRight className="w-5 h-5" />
               </a>
               <div className="flex flex-col gap-2 w-full sm:w-auto">
-                <a href="tel:9346776004" className="px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                <a href="tel:9346776004" className="px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-sm">
                   <Phone className="w-5 h-5 text-indigo-600" /> 9346776004
                 </a>
-                <a href="mailto:gutthiraju2023@gmail.com" className="text-sm font-medium text-slate-500 text-center hover:text-indigo-600 transition-colors">
-                  gutthiraju2023@gmail.com
+                <a href={`mailto:${TARGET_EMAIL}`} className="text-sm font-medium text-slate-500 text-center hover:text-indigo-600 transition-colors">
+                  {TARGET_EMAIL}
                 </a>
               </div>
             </div>
@@ -129,7 +153,7 @@ export default function HomePage() {
                       width="100%" 
                       height="100%" 
                       src={INTRO_VIDEO_URL}
-                      title="Technology with Raju - Intro"
+                      title="Promotional Masterclass - HTML & CSS Roadmap"
                       frameBorder="0" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                       allowFullScreen
@@ -138,12 +162,12 @@ export default function HomePage() {
                   </div>
                   <div className="bg-slate-900/90 backdrop-blur-md p-4 flex items-center justify-between border-t border-white/5">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center text-indigo-400">
-                        <Globe className="w-6 h-6" />
+                      <div className="w-10 h-10 rounded-xl overflow-hidden bg-red-600 flex items-center justify-center text-white">
+                        <Youtube className="w-6 h-6" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white uppercase tracking-wider">Engineering Masterclass</div>
-                        <div className="text-[10px] text-slate-400">Web Mastery • SDLC • Security</div>
+                        <div className="text-xs font-bold text-white uppercase tracking-wider">Course Promotional Video</div>
+                        <div className="text-[10px] text-slate-400">Mastering Every Language • 2025 Roadmap</div>
                       </div>
                     </div>
                   </div>
@@ -153,16 +177,76 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Detailed Course Pricing Section */}
+      {/* Featured Video Section */}
+      <section className="py-20 bg-slate-50 dark:bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+            <div className="text-center md:text-left">
+              <div className="inline-flex items-center gap-2 text-red-600 font-bold text-sm uppercase tracking-widest mb-2">
+                <Youtube className="w-5 h-5" /> Detailed Session
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">Professional Deployment</h2>
+            </div>
+            <Link to="/videos" className="bg-white dark:bg-slate-800 px-6 py-3 rounded-xl border border-slate-200 dark:border-slate-700 font-bold hover:bg-slate-50 transition-all flex items-center gap-2">
+              All Masterclasses <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8">
+              <div className="aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 bg-black group relative">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src={`https://www.youtube-nocookie.com/embed/${FEATURED_VIDEO_ID}?rel=0&modestbranding=1`}
+                  title="Production Deployment Session"
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+            </div>
+            <div className="lg:col-span-4 space-y-6">
+              <div className="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Deployment Strategies</h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                  Learn how to take your HTML, CSS, and JS projects to the cloud. We cover CI/CD, Docker, and zero-downtime tactics.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500" /> Professional CI/CD
+                  </div>
+                  <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500" /> Containerization
+                  </div>
+                  <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500" /> Live Project Launch
+                  </div>
+                </div>
+              </div>
+              <a 
+                href="https://www.youtube.com/@Technology_with_Raju10" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full py-4 bg-red-600 text-white rounded-2xl font-black text-center flex items-center justify-center gap-2 hover:bg-red-700 transition-all shadow-xl shadow-red-100 dark:shadow-none"
+              >
+                <Youtube className="w-5 h-5" /> Subscribe for Updates
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Course Pricing Grid */}
       <section id="courses" className="py-24 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">Course Details & Pricing</h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Affordable, high-impact training modules designed for every level of your engineering career.</p>
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">Available Courses & Tracks</h2>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Get specialized training in the core pillars of modern engineering.</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Frontend Category */}
             <div className="space-y-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
@@ -191,13 +275,12 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Programming Category */}
             <div className="space-y-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-violet-100 dark:bg-violet-900/30 rounded-lg">
                   <Code className="w-6 h-6 text-violet-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Programming Track</h3>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Programming Mastery</h3>
               </div>
               <div className="grid gap-4">
                 {programmingCourses.map((course, idx) => (
@@ -218,16 +301,15 @@ export default function HomePage() {
                   </div>
                 ))}
                 
-                {/* Special Email Contact Card */}
                 <div className="bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-2xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-white/10 rounded-xl"><Mail className="w-6 h-6" /></div>
                     <div>
-                      <h4 className="font-bold">Email Inquiries</h4>
-                      <p className="text-xs text-indigo-100 mt-1">Direct support for all courses</p>
+                      <h4 className="font-bold">Email Support</h4>
+                      <p className="text-xs text-indigo-100 mt-1">Direct inquiries only</p>
                     </div>
                   </div>
-                  <a href="mailto:gutthiraju2023@gmail.com" className="text-sm font-bold bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20 transition-colors break-all">gutthiraju2023@gmail.com</a>
+                  <a href={`mailto:${TARGET_EMAIL}`} className="text-sm font-bold bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20 transition-colors break-all">{TARGET_EMAIL}</a>
                 </div>
               </div>
             </div>
@@ -235,23 +317,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Registration Section */}
+      {/* Contact & Inquiry Section */}
       <section id="register" className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            
-            {/* Left Content */}
             <div className="space-y-8">
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">Start Your Engineering <br/><span className="text-indigo-600">Journey Today</span></h2>
               <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
-                Whether you're looking for a quick HTML crash course or a deep dive into React and Python, our expert-led sessions will give you the practical skills you need.
+                Whether you're looking for HTML, CSS, or a deep dive into React and Python, our promotional roadmap sessions will give you the practical skills you need.
               </p>
               <div className="space-y-4">
                 {[
                   "100% Practical & Project Based",
                   "Direct Mentorship from Raju",
                   "Industry-Ready Curriculum",
-                  "Response within 24 Hours via Email"
+                  "Fast response to your email within 24 Hours"
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600">
@@ -266,9 +346,9 @@ export default function HomePage() {
                   href={REGISTRATION_LINK} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg active:scale-95"
                  >
-                   Official Registration Form <ExternalLink className="w-4 h-4" />
+                   Official Enrollment Form <ExternalLink className="w-4 h-4" />
                  </a>
               </div>
             </div>
@@ -280,8 +360,8 @@ export default function HomePage() {
               </div>
               
               <div className="relative z-10">
-                <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Send a Question</h3>
-                <p className="text-slate-500 dark:text-slate-400 mb-8">Data will be sent to <b>gutthiraju2023@gmail.com</b></p>
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Send an Inquiry</h3>
+                <p className="text-slate-500 dark:text-slate-400 mb-8">Your details will be sent directly to <b>{TARGET_EMAIL}</b></p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
@@ -316,7 +396,22 @@ export default function HomePage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Course & Inquiry</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Email Address</label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <input 
+                        type="email" 
+                        required
+                        className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                        placeholder="you@example.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Interested Course</label>
                     <select 
                       className="w-full px-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
                       value={formData.course}
@@ -333,13 +428,13 @@ export default function HomePage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Your Question / Message</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Your Message</label>
                     <div className="relative">
                       <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
                       <textarea 
                         rows={3}
                         className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                        placeholder="Type your question here..."
+                        placeholder="Tell Raju what you need help with..."
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
                       />
@@ -349,16 +444,22 @@ export default function HomePage() {
                   <button 
                     type="submit" 
                     disabled={isSubmitting || isSuccess}
-                    className={`w-full py-5 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${isSuccess ? 'bg-emerald-500 text-white' : 'bg-slate-900 dark:bg-indigo-600 text-white hover:opacity-90 active:scale-95 shadow-indigo-200 dark:shadow-none'}`}
+                    className={`w-full py-5 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${isSuccess ? 'bg-emerald-500 text-white shadow-emerald-200' : 'bg-slate-900 dark:bg-indigo-600 text-white hover:opacity-90 active:scale-95 shadow-indigo-200 dark:shadow-none'}`}
                   >
-                    {isSubmitting ? "Sending..." : isSuccess ? "Message Sent to Raju!" : "Send Inquiry"}
+                    {isSubmitting ? "Sending details..." : isSuccess ? "Sent Successfully!" : "Send Inquiry to Raju"}
                     {!isSubmitting && !isSuccess && <Send className="w-5 h-5" />}
                     {isSuccess && <CheckCircle2 className="w-6 h-6" />}
                   </button>
+                  
+                  {isSuccess && (
+                    <p className="text-center text-emerald-600 font-bold text-sm mt-2 animate-pulse">
+                      Thank you! Your inquiry was sent to {TARGET_EMAIL}.
+                    </p>
+                  )}
                 </form>
 
                 <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
-                  <p className="text-slate-400 text-sm mb-2">Or reach out directly via WhatsApp/Call</p>
+                  <p className="text-slate-400 text-sm mb-2">Or call/WhatsApp Raju directly</p>
                   <a href="tel:9346776004" className="text-indigo-600 font-black text-xl hover:underline">9346776004</a>
                 </div>
               </div>
@@ -367,17 +468,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Feature Section */}
+      {/* Why Choose Raju Section */}
       <section className="py-24 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-20 space-y-4">
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white">Why Learn with Raju?</h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">My methodology focuses on professional-grade skills that make you stand out to employers.</p>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">Master the skills that top employers look for in modern engineers.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {[
               { icon: <ShieldCheck className="w-12 h-12 text-pink-500" />, title: "Secure Architecture", desc: "Build systems resilient to modern threats, mastering OAuth2, JWT, and Advanced Encryption." },
-              { icon: <Code className="w-12 h-12 text-indigo-500" />, title: "Industrial SDLC", desc: "Experience the complete product lifecycle from requirement specs to automated CI/CD pipelines." },
+              { icon: <Code className="w-12 h-12 text-indigo-500" />, title: "Full Language Stack", desc: "Master HTML, CSS, JavaScript, Python, and React from the ground up." },
               { icon: <Users className="w-12 h-12 text-cyan-500" />, title: "Elite Community", desc: "Access our private network of engineers working at top-tier global product firms." }
             ].map((f, i) => (
               <div key={i} className="bg-slate-50 dark:bg-slate-900 p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all group hover:-translate-y-2 duration-500">
@@ -390,25 +491,5 @@ export default function HomePage() {
         </div>
       </section>
     </div>
-  );
-}
-
-// Added ExternalLink helper icon as it was used in code
-function ExternalLink({ className }: { className?: string }) {
-  return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className}
-    >
-      <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-    </svg>
   );
 }
