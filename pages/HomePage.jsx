@@ -1,0 +1,493 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router';
+import { 
+  ArrowRight, 
+  CheckCircle2, 
+  Users, 
+  Code, 
+  ShieldCheck, 
+  Zap, 
+  Globe, 
+  Phone, 
+  Mail, 
+  User, 
+  Send,
+  Layout,
+  FileCode,
+  Flame,
+  Terminal,
+  Smartphone,
+  Clock,
+  IndianRupee,
+  Coffee,
+  MessageSquare,
+  PlayCircle,
+  Youtube,
+  ExternalLink
+} from 'lucide-react';
+
+export default function HomePage() {
+  // First Video (Hero Section) - Promotional Masterclass: https://youtu.be/WPYXf144eDY
+  const INTRO_VIDEO_ID = "WPYXf144eDY";
+  const INTRO_VIDEO_URL = `https://www.youtube-nocookie.com/embed/${INTRO_VIDEO_ID}?rel=0&modestbranding=1`;
+  
+  // Registration and Contact info
+  const REGISTRATION_LINK = "https://forms.gle/kxCxZqDTGT9B5n7x6";
+  const TARGET_EMAIL = "gutthiraju2023@gmail.com";
+
+  // Second Video (Featured Section) - Full Course for Notepad: https://youtu.be/Nls04PHDimM
+  const FEATURED_VIDEO_ID = "Nls04PHDimM"; 
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    course: 'HTML Mastery',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('https://formspree.io/f/mqakpzoz', { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          _subject: `Technology with Raju: New Inquiry from ${formData.name}`,
+          _replyto: formData.email,
+          recipient: TARGET_EMAIL,
+          message_body: `
+            Student Details:
+            - Name: ${formData.name}
+            - Email: ${formData.email}
+            - Phone: ${formData.phone}
+            - Interested Course: ${formData.course}
+            - Message: ${formData.message}
+          `
+        })
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        setFormData({ name: '', email: '', phone: '', course: 'HTML Mastery', message: '' });
+        setTimeout(() => setIsSuccess(false), 5000);
+      } else {
+        setIsSuccess(true);
+        setFormData({ name: '', email: '', phone: '', course: 'HTML Mastery', message: '' });
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      setIsSuccess(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const frontendCourses = [
+    { name: "HTML", icon: <Layout className="w-6 h-6 text-orange-500" />, duration: "10–12 days", charge: "₹1,500 – ₹2,000" },
+    { name: "CSS", icon: <Flame className="w-6 h-6 text-blue-500" />, duration: "12–15 days", charge: "₹2,000 – ₹2,500" },
+    { name: "JavaScript", icon: <FileCode className="w-6 h-6 text-yellow-500" />, duration: "25–30 days", charge: "₹4,000 – ₹6,000" },
+    { name: "React JS", icon: <Zap className="w-6 h-6 text-cyan-500" />, duration: "30–35 days", charge: "₹6,000 – ₹8,000" }
+  ];
+
+  const programmingCourses = [
+    { name: "Python", icon: <Terminal className="w-6 h-6 text-indigo-500" />, duration: "30 days", charge: "₹4,000 – ₹6,000" },
+    { name: "Java", icon: <Coffee className="w-6 h-6 text-red-500" />, duration: "40–45 days", charge: "₹6,000 – ₹8,000" }
+  ];
+
+  return (
+    <div className="overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative py-16 lg:py-24 px-4 bg-white dark:bg-slate-950">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 opacity-15 pointer-events-none">
+          <div className="absolute top-10 left-10 w-96 h-96 bg-pink-500 rounded-full blur-[120px]"></div>
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500 rounded-full blur-[120px]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-violet-600 rounded-full blur-[140px]"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+          <div className="flex-1 space-y-8 text-center lg:text-left">
+            <div className="inline-flex items-center space-x-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-full font-semibold text-sm border border-indigo-100 dark:border-indigo-800">
+              <PlayCircle className="w-4 h-4" />
+              <span>Full Course Masterclass: HTML, CSS & Beyond</span>
+            </div>
+            <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 dark:text-white leading-tight">
+              The Ultimate <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Engineering</span> Promotional Masterclass
+            </h1>
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0">
+              Watch our promotional roadmap for HTML, CSS, JavaScript, Python, and ReactJS. Get industry-ready with Raju's expert guidance.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <a 
+                href={REGISTRATION_LINK} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-xl shadow-indigo-200 active:scale-95"
+              >
+                Register Now <ArrowRight className="w-5 h-5" />
+              </a>
+              <div className="flex flex-col gap-2 w-full sm:w-auto">
+                <a href="tel:9346776004" className="px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-sm">
+                  <Phone className="w-5 h-5 text-indigo-600" /> 9346776004
+                </a>
+                <a href={`mailto:${TARGET_EMAIL}`} className="text-sm font-medium text-slate-500 text-center hover:text-indigo-600 transition-colors">
+                  {TARGET_EMAIL}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex-1 w-full max-w-2xl relative">
+             <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-indigo-500 to-cyan-500 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
+                <div className="relative bg-slate-950 rounded-3xl shadow-2xl overflow-hidden border border-slate-800 ring-1 ring-white/10">
+                  <div className="aspect-video bg-black">
+                    <iframe 
+                      width="100%" 
+                      height="100%" 
+                      src={INTRO_VIDEO_URL}
+                      title="Promotional Masterclass - HTML & CSS Roadmap"
+                      frameBorder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      allowFullScreen
+                      className="w-full h-full"
+                    ></iframe>
+                  </div>
+                  <div className="bg-slate-900/90 backdrop-blur-md p-4 flex items-center justify-between border-t border-white/5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl overflow-hidden bg-red-600 flex items-center justify-center text-white">
+                        <Youtube className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white uppercase tracking-wider">Course Promotional Video</div>
+                        <div className="text-[10px] text-slate-400">Mastering Every Language • 2025 Roadmap</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Notepad Video Section */}
+      <section className="py-20 bg-slate-50 dark:bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+            <div className="text-center md:text-left">
+              <div className="inline-flex items-center gap-2 text-red-600 font-bold text-sm uppercase tracking-widest mb-2">
+                <Youtube className="w-5 h-5" /> Notepad Mastery Edition
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">Learn Coding with Notepad</h2>
+            </div>
+            <Link to="/videos" className="bg-white dark:bg-slate-800 px-6 py-3 rounded-xl border border-slate-200 dark:border-slate-700 font-bold hover:bg-slate-50 transition-all flex items-center gap-2">
+              All Masterclasses <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8">
+              <div className="aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 bg-black group relative">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src={`https://www.youtube-nocookie.com/embed/${FEATURED_VIDEO_ID}?rel=0&modestbranding=1`}
+                  title="Full Course: Mastering HTML using Notepad"
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+            </div>
+            <div className="lg:col-span-4 space-y-6">
+              <div className="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">HTML Full Course for Notepad</h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                  Strip away the distractions of complex IDEs. In this specialized full course, Raju teaches you how to build professional web structures using only Notepad. Master the core syntax, tags, and document flow from the ground up.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500" /> Pure Coding Fundamentals
+                  </div>
+                  <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500" /> Zero-Dependency Logic
+                  </div>
+                  <div className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500" /> Professional Project Output
+                  </div>
+                </div>
+              </div>
+              <a 
+                href="https://www.youtube.com/@Technology_with_Raju10" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full py-4 bg-red-600 text-white rounded-2xl font-black text-center flex items-center justify-center gap-2 hover:bg-red-700 transition-all shadow-xl shadow-red-100 dark:shadow-none"
+              >
+                <Youtube className="w-5 h-5" /> Watch the Full Series
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Course Pricing Grid */}
+      <section id="courses" className="py-24 bg-white dark:bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">Available Courses & Tracks</h2>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Get specialized training in the core pillars of modern engineering.</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
+                  <Layout className="w-6 h-6 text-indigo-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Frontend Track</h3>
+              </div>
+              <div className="grid gap-4">
+                {frontendCourses.map((course, idx) => (
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:shadow-lg transition-all">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm">{course.icon}</div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white">{course.name}</h4>
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+                          <Clock className="w-3.5 h-3.5" /> {course.duration}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IndianRupee className="w-4 h-4 text-emerald-600" />
+                      <span className="text-lg font-black text-slate-900 dark:text-white">{course.charge}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-violet-100 dark:bg-violet-900/30 rounded-lg">
+                  <Code className="w-6 h-6 text-violet-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Programming Mastery</h3>
+              </div>
+              <div className="grid gap-4">
+                {programmingCourses.map((course, idx) => (
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:shadow-lg transition-all">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm">{course.icon}</div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white">{course.name}</h4>
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+                          <Clock className="w-3.5 h-3.5" /> {course.duration}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IndianRupee className="w-4 h-4 text-emerald-600" />
+                      <span className="text-lg font-black text-slate-900 dark:text-white">{course.charge}</span>
+                    </div>
+                  </div>
+                ))}
+                
+                <div className="bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-2xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-white/10 rounded-xl"><Mail className="w-6 h-6" /></div>
+                    <div>
+                      <h4 className="font-bold">Email Support</h4>
+                      <p className="text-xs text-indigo-100 mt-1">Direct inquiries only</p>
+                    </div>
+                  </div>
+                  <a href={`mailto:${TARGET_EMAIL}`} className="text-sm font-bold bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20 transition-colors break-all">{TARGET_EMAIL}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact & Inquiry Section */}
+      <section id="register" className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">Start Your Engineering <br/><span className="text-indigo-600">Journey Today</span></h2>
+              <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                Whether you're looking for HTML, CSS, or a deep dive into React and Python, our promotional roadmap sessions will give you the practical skills you need.
+              </p>
+              <div className="space-y-4">
+                {[
+                  "100% Practical & Project Based",
+                  "Direct Mentorship from Raju",
+                  "Industry-Ready Curriculum",
+                  "Fast response to your email within 24 Hours"
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600">
+                      <CheckCircle2 className="w-4 h-4" />
+                    </div>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="pt-4">
+                 <a 
+                  href={REGISTRATION_LINK} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg active:scale-95"
+                 >
+                   Official Enrollment Form <ExternalLink className="w-4 h-4" />
+                 </a>
+              </div>
+            </div>
+
+            {/* Inquiry Form */}
+            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-200 dark:border-slate-800 relative">
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                <Send className="w-24 h-24 text-indigo-600" />
+              </div>
+              
+              <div className="relative z-10">
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Send an Inquiry</h3>
+                <p className="text-slate-500 dark:text-slate-400 mb-8">Your details will be sent directly to <b>{TARGET_EMAIL}</b></p>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Full Name</label>
+                      <div className="relative">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                        <input 
+                          type="text" 
+                          required
+                          className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                          placeholder="Your Name"
+                          value={formData.name}
+                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Phone Number</label>
+                      <div className="relative">
+                        <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                        <input 
+                          type="tel" 
+                          required
+                          className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                          placeholder="93467 76004"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Email Address</label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <input 
+                        type="email" 
+                        required
+                        className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                        placeholder="you@example.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Interested Course</label>
+                    <select 
+                      className="w-full px-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+                      value={formData.course}
+                      onChange={(e) => setFormData({...formData, course: e.target.value})}
+                    >
+                      <option>HTML Mastery</option>
+                      <option>CSS Advanced Design</option>
+                      <option>JavaScript Logic Mastery</option>
+                      <option>React JS Pro Track</option>
+                      <option>Python Automation & Backend</option>
+                      <option>Java Core & Advanced</option>
+                      <option>General Question / Other</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">Your Message</label>
+                    <div className="relative">
+                      <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
+                      <textarea 
+                        rows={3}
+                        className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                        placeholder="Tell Raju what you need help with..."
+                        value={formData.message}
+                        onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      />
+                    </div>
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting || isSuccess}
+                    className={`w-full py-5 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${isSuccess ? 'bg-emerald-500 text-white shadow-emerald-200' : 'bg-slate-900 dark:bg-indigo-600 text-white hover:opacity-90 active:scale-95 shadow-indigo-200 dark:shadow-none'}`}
+                  >
+                    {isSubmitting ? "Sending details..." : isSuccess ? "Sent Successfully!" : "Send Inquiry to Raju"}
+                    {!isSubmitting && !isSuccess && <Send className="w-5 h-5" />}
+                    {isSuccess && <CheckCircle2 className="w-6 h-6" />}
+                  </button>
+                  
+                  {isSuccess && (
+                    <p className="text-center text-emerald-600 font-bold text-sm mt-2 animate-pulse">
+                      Thank you! Your inquiry was sent to {TARGET_EMAIL}.
+                    </p>
+                  )}
+                </form>
+
+                <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
+                  <p className="text-slate-400 text-sm mb-2">Or call/WhatsApp Raju directly</p>
+                  <a href="tel:9346776004" className="text-indigo-600 font-black text-xl hover:underline">9346776004</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Raju Section */}
+      <section className="py-24 bg-white dark:bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-20 space-y-4">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white">Why Learn with Raju?</h2>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">Master the skills that top employers look for in modern engineers.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            {[
+              { icon: <ShieldCheck className="w-12 h-12 text-pink-500" />, title: "Secure Architecture", desc: "Build systems resilient to modern threats, mastering OAuth2, JWT, and Advanced Encryption." },
+              { icon: <Code className="w-12 h-12 text-indigo-500" />, title: "Full Language Stack", desc: "Master HTML, CSS, JavaScript, Python, and React from the ground up." },
+              { icon: <Users className="w-12 h-12 text-cyan-500" />, title: "Elite Community", desc: "Access our private network of engineers working at top-tier global product firms." }
+            ].map((f, i) => (
+              <div key={i} className="bg-slate-50 dark:bg-slate-900 p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all group hover:-translate-y-2 duration-500">
+                <div className="mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform">{f.icon}</div>
+                <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">{f.title}</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

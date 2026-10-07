@@ -1,0 +1,91 @@
+
+// In a real app, these methods would call Python FastAPI endpoints
+export const authService = {
+  login: async (email, password) => {
+    // Simulate API delay
+    await new Promise(r => setTimeout(r, 800));
+    
+    // In production: POST /api/auth/login -> returns { token, user }
+    const mockUser = {
+      id: 'u123',
+      name: 'Test Student',
+      email: email,
+      purchasedCourses: [],
+      completedLessons: [],
+      role: 'student'
+    };
+    
+    const mockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy_data";
+    
+    localStorage.setItem('raju_auth_token', mockToken);
+    localStorage.setItem('raju_user', JSON.stringify(mockUser));
+    
+    return { user: mockUser, token: mockToken, isAuthenticated: true };
+  },
+
+  logout: () => {
+    localStorage.removeItem('raju_auth_token');
+    localStorage.removeItem('raju_user');
+    window.location.hash = '/login';
+  },
+
+  getCurrentState: () => {
+    try {
+      const token = localStorage.getItem('raju_auth_token');
+      const userStr = localStorage.getItem('raju_user');
+      if (token && userStr) {
+        const user = JSON.parse(userStr);
+        // Ensure legacy users have the new field
+        if (!user.completedLessons) user.completedLessons = [];
+        return { user, token, isAuthenticated: true };
+      }
+    } catch (e) {
+      console.error("Failed to parse auth state from localStorage", e);
+      localStorage.removeItem('raju_auth_token');
+      localStorage.removeItem('raju_user');
+    }
+    return { user: null, token: null, isAuthenticated: false };
+  },
+
+  updatePurchasedCourses: (courseId) => {
+    try {
+      const userStr = localStorage.getItem('raju_user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        if (!user.purchasedCourses.includes(courseId)) {
+          user.purchasedCourses.push(courseId);
+          localStorage.setItem('raju_user', JSON.stringify(user));
+          return user;
+        }
+      }
+    } catch (e) {
+      console.error("Failed to update purchased courses", e);
+    }
+    return null;
+  },
+
+  toggleLessonComplete: (courseId, lessonIndex) => {
+    try {
+      const userStr = localStorage.getItem('raju_user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        const completionKey = `${courseId}|${lessonIndex}`;
+        
+        if (!user.completedLessons) user.completedLessons = [];
+        
+        const index = user.completedLessons.indexOf(completionKey);
+        if (index > -1) {
+          user.completedLessons.splice(index, 1);
+        } else {
+          user.completedLessons.push(completionKey);
+        }
+        
+        localStorage.setItem('raju_user', JSON.stringify(user));
+        return user;
+      }
+    } catch (e) {
+      console.error("Failed to toggle lesson completion", e);
+    }
+    return null;
+  }
+};
